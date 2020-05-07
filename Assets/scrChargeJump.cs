@@ -14,9 +14,4 @@ public class scrChargeJump : MonoBehaviour
             Touch theTouch = Input.GetTouch(0);
         }
     }
-    public void TestFunction()
-    {
-        //This function is nothing but a test.
-        //Delete this when done!
-    }
 }
