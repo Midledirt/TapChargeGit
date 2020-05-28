@@ -14,10 +14,20 @@ public class scrDetectSwipe : MonoBehaviour
     public bool swipeUp;
     public bool swipeDown;
 
+    public bool characterCrouch;
+    public float crouchTimer = 2f;
+
+    [Tooltip("The animator thats attached to the oPLayer")]
+    public Animator BoxAnimator;
 
     [SerializeField]
     [Range(100f, 300f)]
     private float minDistanceForSwipe = 100f;
+
+    private void Start()
+    {
+        characterCrouch = false;
+    }
 
     private void Update()
     {
@@ -65,11 +75,15 @@ public class scrDetectSwipe : MonoBehaviour
             if (lastTouchPos.y > initialTouchPos.y)
             {
                 swipeUp = true;
+                BoxAnimator.SetBool("SwipeUp", true);
                 StartCoroutine(onSwipe());
             }
             else if (lastTouchPos.y < initialTouchPos.y)
             {
                 swipeDown = true;
+                BoxAnimator.SetBool("SwipeDown", true);
+                //Start the crouching state
+                characterCrouch = true;
                 StartCoroutine(onSwipe());
             }
         }
@@ -80,7 +94,11 @@ public class scrDetectSwipe : MonoBehaviour
         //This IEnumerator simply sets swipe down to false after a timer.
         yield return new WaitForSeconds(0.2f);
         swipeUp = false;
+        BoxAnimator.SetBool("SwipeUp", false);
         swipeDown = false;
+        yield return new WaitForSeconds(crouchTimer);
+        characterCrouch = false;
+        BoxAnimator.SetBool("SwipeDown", false);
 
         //yield return null;
     }
