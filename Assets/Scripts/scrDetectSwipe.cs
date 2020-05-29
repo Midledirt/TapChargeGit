@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class scrDetectSwipe : MonoBehaviour
 {
-    //Problem: SwipeUpp virker ikke, mens swipeDown funker. Har ikke peiling på hvorfor... 
 
     //These are coordinates used to store the positions of the touch
     private Vector3 initialTouchPos;
     private Vector3 lastTouchPos;
 
     //These bools turns on for a set duration after a downward or upward swipe
-    public bool swipeUp;
-    public bool swipeDown;
+    private bool swipeUp;
+    private bool swipeDown;
 
     public bool characterCrouch;
+    [Range(0f, 2f)]
     public float crouchTimer = 2f;
 
     [Tooltip("The animator thats attached to the oPLayer")]
@@ -42,7 +42,7 @@ public class scrDetectSwipe : MonoBehaviour
             {
                 //Store the ORIGINAL coordinates of the first touch
                 initialTouchPos = theFirstTouch.position;
-                //The following line of code is not something I haad originally, but this will reset the finger up position whenever you touch the device again. Hmmmm
+                //The following line of code is not something I had originally, but this will reset the finger up position whenever you touch the device again. Hmmmm
                 lastTouchPos = theFirstTouch.position;
                 //print(theFirstTouch.position);
             }
@@ -91,7 +91,7 @@ public class scrDetectSwipe : MonoBehaviour
 
     IEnumerator onSwipe()
     {
-        //This IEnumerator simply sets swipe down to false after a timer.
+        //This IEnumerator simply sets swipe down to false after a timer... (edit)And fires of some animations
         yield return new WaitForSeconds(0.2f);
         swipeUp = false;
         BoxAnimator.SetBool("SwipeUp", false);
