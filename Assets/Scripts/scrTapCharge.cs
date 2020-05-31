@@ -10,6 +10,7 @@ public class scrTapCharge : MonoBehaviour
     //Checks if we are crouching
     public bool isCrouching;
 
+    //Checks if we are charging (started tapping after crouching)
     public bool isCharging;
 
     public float jumpChargeTimer = 1f;
@@ -36,7 +37,6 @@ public class scrTapCharge : MonoBehaviour
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 tapCount += (Input.touchCount * chargeMultiplier);
-                //Store touches in a list and make a foreach touch loop
             }
         }
 
